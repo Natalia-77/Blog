@@ -16,7 +16,16 @@
     color:aqua
 }
 
+.tg {
+    width: 250px;
+    color: blueviolet;
+    background-color: #BCDAD5 !important;
+}
+i {
+    font-family: fontawesome !important;
+}
 
+/*@import url("https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");*/
 
 
 
