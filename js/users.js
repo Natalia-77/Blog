@@ -36,7 +36,7 @@ window.onload = function ()
 
 
 
-    var template = '<span class="float-left"><i class="fas fa-trash fa-1x text-info cursor-pointer delete-service" aria-hidden="true"></i></span><b>&nbsp;&nbsp;&nbsp;</b><span><i class="far fa-edit fa-1x text-info cursor-pointer"aria-hidden="true"></i></span>';
+    var template = '<span class="float-left"><i class="fas fa-trash fa-1x text-danger cursor-pointer delete-service" aria-hidden="true"></i></span><b>&nbsp;&nbsp;&nbsp;</b><span><i class="far fa-edit fa-1x text-info cursor-pointer"aria-hidden="true"></i></span>';
     let cityes = [
         {
             surname: 'Петров', name: 'Олег', tel: '(068)123-45-89', dog: 'так',
@@ -187,28 +187,24 @@ window.onload = function ()
         txtSurName.value = txtName.value = txtTelephone.value = "";
         $("#mymodalwindow").modal("hide");
        
-        table.appendChild(tr);
-
-        //видаляю строчку в таблиці.Клас .delete-service оголошений в строчці 39(там де іконка видалення).
-        //клікаю на неї і видяляю.
-       //$(".delete-service").click(function () {
-       // e.preventDefault();
-       // $(this).closest('tr').remove();
-       // $("#mymodalwindow").modal("show");
-       //});
+        table.appendChild(tr);     
        
-
-    }
-
-   //видаляю строчку в таблиці.Клас .delete-service оголошений в строчці 39(там де іконка видалення).
-   //клікаю на неї і видяляю.
-    $('i.delete-service').on('click', function (e) {
-        e.preventDefault();
-        $(this).closest('tr').remove();
-        $("#mymodalwindow").modal("show");
-    });
+    }  
       
 
+    $('i.delete-service').on('click', function (e) {
+        e.preventDefault();
+        var item = $(this).closest('tr');      
+        $("#modaldelete").modal("show");
+
+        $('#deletebutton').click(function () {            
+            $(item).remove();
+            $("#modaldelete").modal("hide");
+        });
+        
+    });
+
+   
 }
 
 
