@@ -29,53 +29,52 @@ window.onload = function ()
             form.classList.add('was-validated');
         }, false);
     });
-    
-
-
-
-
 
 
     var template = '<span class="float-left"><i class="fas fa-trash fa-1x text-danger cursor-pointer delete-service" aria-hidden="true"></i></span><b>&nbsp;&nbsp;&nbsp;</b><span><i class="far fa-edit fa-1x text-info cursor-pointer"aria-hidden="true"></i></span>';
-    let cityes = [
+    var photoTemplate1 = '<img class="img-fluid " width="90" height="800" src="/images/face1.jpg">';
+    var photoTemplate2 = '<img class="img-fluid " width="90" height="800" src="/images/face2.jpg">';
+    var photoTemplate3 = '<img class="img-fluid " width="90" height="800" src="/images/face3.jpg">';
+    var photoTemplate4 = '<img class="img-fluid " width="120" height="800" src="/images/face4.jpg">';
+    var photoTemplate5 = '<img class="img-fluid " width="120" height="800" src="/images/face5.jpg">';
+    var photoTemplate6 = '<img class="img-fluid " width="120" height="800" src="/images/face6.jpg">';
+    var photoTemplate7 = '<img class="img-fluid " width="120" height="800" src="/images/face8.jpg">';
+    var photoTemplate8 = '<img class="img-fluid " width="120" height="800" src="/images/face7.jpg">';
+    var photoTemplate9 = '<img class="img-fluid " width="120" height="800" src="/images/444.jpg">';
+
+
+
+    let users = [
         {
-            surname: 'Петров', name: 'Олег', tel: '(068)123-45-89', dog: 'так',
+            photo:photoTemplate1, surname: 'Петров', name: 'Олег', tel: '(068)123-45-89', dog: 'так',
             res: template
         },
         {
-            surname: 'Шевченко', name: 'Тарас', tel: '(098)123-77-89', dog: 'так',
+            photo: photoTemplate2 ,surname: 'Шевченко', name: 'Тарас', tel: '(098)123-77-89', dog: 'так',
             res: template
         },
         {
-            surname: 'Равка', name: 'Марина', tel: '(063)883-67-99', dog: 'так',
+            photo: photoTemplate3 ,surname: 'Равка', name: 'Марина', tel: '(063)883-67-99', dog: 'так',
             res: template
         },
         {
-            surname: 'Лавренчук', name: 'Петро', tel: '(083)893-17-33', dog: 'так',
+            photo: photoTemplate4,surname: 'Лавренчук', name: 'Петро', tel: '(083)893-17-33', dog: 'так',
             res: template
         },
         {
-            surname: 'Щепков', name: 'Віктор', tel: '(083)893-17-33', dog: 'так',
+            photo: photoTemplate5,surname: 'Щепков', name: 'Віктор', tel: '(083)893-17-33', dog: 'так',
             res: template
         },
         {
-            surname: 'Кащенко', name: 'Катерина', tel: '(083)893-52-45', dog: 'так',
+            photo: photoTemplate6,surname: 'Кащенко', name: 'Катерина', tel: '(083)893-52-45', dog: 'так',
             res: template
         },
         {
-            surname: 'Бобров', name: 'Сергій', tel: '(097)222-11-33', dog: 'ні',
+            photo: photoTemplate7,surname: 'Бобров', name: 'Сергій', tel: '(097)222-11-33', dog: 'ні',
             res: template
-        },
+        },             
         {
-            surname: 'Кулеба', name: 'Михайло', tel: '(067)566-23-43', dog: 'ні',
-            res: template
-        },
-        {
-            surname: 'Данченко', name: 'Дмитро', tel: '(067)633-13-63', dog: 'так',
-            res: template
-        },
-        {
-            surname: 'Савченко', name: 'Надія', tel: '(068)753-16-12', dog: 'так',
+            photo: photoTemplate8,surname: 'Савченко', name: 'Надія', tel: '(068)753-16-12', dog: 'так',
             res: template
         }
 
@@ -105,11 +104,14 @@ window.onload = function ()
     let table = document.querySelector('#table');
     let tr;
 
-    for (let item of cityes) {
+    for (let item of users) {
         tr = document.createElement('tr');
         table.appendChild(tr);
         let td;
 
+        //td = document.createElement('td');
+        //td.innerHTML = item.photo;
+        //tr.appendChild(td);
 
         td = document.createElement('td');
         td.innerHTML = item.surname;
@@ -129,6 +131,7 @@ window.onload = function ()
 
         td = document.createElement('td');
         td.innerHTML = item.res;
+        //console.log(td.innerHTML);
         tr.appendChild(td);
         
 
@@ -148,11 +151,11 @@ window.onload = function ()
         var username = txtName.value;
         var userphone = txtTelephone.value;
         var userdog = txtDogs.value;
-        var userdognone = txtDogsNone.value;
+        var userdognone = txtDogsNone.value;       
 
-        console.log("txtLastName", usersurname);
-        console.log("txtName", username);
-        console.log("txtPhone", userphone);
+        //td = document.createElement('td');
+        //td.innerHTML = photoTemplate9;
+        //tr.appendChild(td);
 
         td = document.createElement('td');
         td.innerHTML =usersurname;
@@ -167,45 +170,49 @@ window.onload = function ()
         tr.appendChild(td);
 
         
-       // Dogs
-       
+       // Dogs       
         td = document.createElement('td');
         if (document.getElementById("yesdog").checked) {
             td.innerHTML = userdog;
-
         }
-        else {
+        else
+        {
             td.innerHTML = userdognone;
         }
         tr.appendChild(td);      
       
         td = document.createElement('td');
-        td.innerHTML =template;
+        td.innerHTML =template;     
         tr.appendChild(td);
-       
+        table.appendChild(tr);          
 
         txtSurName.value = txtName.value = txtTelephone.value = "";
-        $("#mymodalwindow").modal("hide");
-       
-        table.appendChild(tr);     
+        $("#mymodalwindow").modal("hide");     
+
+
+        $('i.delete-service').on('click', function () {
+            //e.preventDefault();
+            var item = $(this).closest("tr");
+            console.log(item);
+            $("#modaldelete").modal("show");
+
+            $('#deletebutton').click(function () {
+                $(item).remove();
+                $("#modaldelete").modal("hide");
+            });
+
+        });
+        
        
     }  
       
 
-    $('i.delete-service').on('click', function (e) {
-        e.preventDefault();
-        var item = $(this).closest('tr');      
-        $("#modaldelete").modal("show");
-
-        $('#deletebutton').click(function () {            
-            $(item).remove();
-            $("#modaldelete").modal("hide");
-        });
-        
-    });
 
    
 }
+
+
+
 
 
      
