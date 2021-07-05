@@ -31,7 +31,7 @@ window.onload = function ()
     });
 
 
-    var template = '<span class="float-left"><i class="fas fa-trash fa-1x text-danger cursor-pointer delete-service" aria-hidden="true"></i></span><b>&nbsp;&nbsp;&nbsp;</b><span><i class="far fa-edit fa-1x text-info cursor-pointer"aria-hidden="true"></i></span>';
+    var template = '<span class="float-left"><i class="fas fa-trash fa-1x text-danger cursor-pointer delete-service" aria-hidden="true"></i></span><b>&nbsp;&nbsp;&nbsp;</b><span><i class="far fa-edit fa-1x text-info cursor-pointer edit-service"aria-hidden="true"></i></span>';
     var photoTemplate1 = '<img class="img-fluid " width="90" height="800" src="/images/face1.jpg">';
     var photoTemplate2 = '<img class="img-fluid " width="90" height="800" src="/images/face2.jpg">';
     var photoTemplate3 = '<img class="img-fluid " width="90" height="800" src="/images/face3.jpg">';
@@ -195,7 +195,7 @@ window.onload = function ()
             console.log(item);
            
             $("#modaldelete").modal("show");
-            $("#modalText").html("Ви зараз намагаєтесь видалити: "+item[0].children[1].innerText +"  "+ item[0].children[2].firstChild.data);
+            $("#modalText").html("Ви зараз намагаєтесь видалити: "+item[0].children[1].firstChild.data +"  "+ item[0].children[2].firstChild.data);
 
             $('#deletebutton').click(function () {
                 $(item).remove();
@@ -207,7 +207,10 @@ window.onload = function ()
        
     }  
       
+    $('i.edit-service').on('click', function () {
 
+        $("#editmodalwindow").modal("show");
+    })
 
    
 }
