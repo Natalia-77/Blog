@@ -109,9 +109,9 @@ window.onload = function ()
         table.appendChild(tr);
         let td;
 
-        //td = document.createElement('td');
-        //td.innerHTML = item.photo;
-        //tr.appendChild(td);
+        td = document.createElement('td');
+        td.innerHTML = item.photo;
+        tr.appendChild(td);
 
         td = document.createElement('td');
         td.innerHTML = item.surname;
@@ -130,8 +130,7 @@ window.onload = function ()
         tr.appendChild(td);
 
         td = document.createElement('td');
-        td.innerHTML = item.res;
-        //console.log(td.innerHTML);
+        td.innerHTML = item.res;        
         tr.appendChild(td);
         
 
@@ -153,9 +152,9 @@ window.onload = function ()
         var userdog = txtDogs.value;
         var userdognone = txtDogsNone.value;       
 
-        //td = document.createElement('td');
-        //td.innerHTML = photoTemplate9;
-        //tr.appendChild(td);
+        td = document.createElement('td');
+        td.innerHTML = photoTemplate9;
+        tr.appendChild(td);
 
         td = document.createElement('td');
         td.innerHTML =usersurname;
@@ -194,7 +193,9 @@ window.onload = function ()
             //e.preventDefault();
             var item = $(this).closest("tr");
             console.log(item);
+           
             $("#modaldelete").modal("show");
+            $("#modalText").html("Ви зараз намагаєтесь видалити: "+item[0].children[1].innerText +"  "+ item[0].children[2].firstChild.data);
 
             $('#deletebutton').click(function () {
                 $(item).remove();
