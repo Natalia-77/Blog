@@ -80,7 +80,7 @@
     </div>
 
     <div class="modal" id="mymodalwindow" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Внесіть дані про користувача</h5>
@@ -90,7 +90,7 @@
                 </div>
                 <form class="needs-validation p-2" novalidate>
                     <div class="form-row">
-                        <div class="col-md-6 mb-3 ml-2">
+                        <div class="col-md-5 mb-3 ml-2">
                             <label for="txtsurname">Прізвище</label>
                             <input type="text" class="form-control" id="txtsurname" placeholder="Прізвище" pattern="[A-Za-z]{1,15}" required>
                             <div class="valid-feedback">
@@ -100,7 +100,7 @@
                                 Введіть правильні дані
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3 ml-2">
+                        <div class="col-md-5 mb-3 ml-2">
                             <label for="txtname">Ім"я</label>
                             <input type="text" class="form-control" id="txtname" placeholder="Ім'я" pattern="[A-Za-z]{1,15}" required>
                             <div class="valid-feedback">
@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-md-6 mb-3 ml-2">
+                        <div class="col-md-5 mb-3 ml-2">
                             <label for="txttel">Телефон</label>
                             <input type="text" class="phone form-control" id="txttel" placeholder="Телефон" required>
                             <div class="valid-feedback">
@@ -122,27 +122,56 @@
                             <div class="invalid-feedback">
                                 Введіть телефон
                             </div>
+
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <img src="images/empty.jpg" width="50%"
+                                         id="imgPhoto" />
+                                    <input type="hidden" id="selectImageBase64" />
+                                    <form method="post" action="#" id="#">
+                                        <div class="form-group files">
+                                            <label>Завантажте фото </label>
+                                            <input type="file" class="form-control "
+                                                   id="fileImage"
+                                                   accept=".jpg, .jpeg, .png">
+                                            <div class="invalid-feedback">Потрібно обрати фото</div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div classs="container">
+                        <div class="row ml-3">
                         <h5>Чи є у вас собака:</h5>
-                        <div class="form-check">
+                        <div class="form-check ml-2">
                             <input class="form-check-input" type="radio" name="radiodog" id="yesdog" value="так">
                             <label class="form-check-label " for="yesdog">
                                 Так
                             </label>
                         </div>
-                        <div class="form-check">
+                        <div class="form-check ml-2">
                             <input class="form-check-input" type="radio" name="radiodog" id="nonedog" value="ні">
                             <label class="form-check-label" for="nonedog">
                                 Ні
                             </label>
                         </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 p-3">
+                                <button type="button" class="btn btn-primary" id="buttonsave">Ок,все вірно</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Я передумала реєструватись</button>
+                                <button type="submit" class="btn btn-primary">Перевірка</button>
+                            </div>
+                        </div>
+                       
                     </div>
 
-                    <button type="button" class="btn btn-primary" id="buttonsave">Ок,все вірно</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Я передумала реєструватись</button>
-                    <button type="submit" class="btn btn-primary">Перевірка</button>
+                   
                 </form>
             </div>
         </div>
@@ -185,8 +214,8 @@
                 <form class="needs-validation p-2" novalidate>
                     <div class="form-row">
                         <div class="col-md-6 mb-3 ml-2">
-                            <label for="txtsurname">Прізвище</label>
-                            <input type="text" class="form-control" id="txtsurname" placeholder="Прізвище" pattern="[A-Za-z]{1,15}" required>
+                            <label for="txteditsurname">Прізвище</label>
+                            <input type="text" class="form-control" name="ttt" id="txteditsurname" placeholder="Прізвище" pattern="[A-Za-z]{1,15}" required>
                             <div class="valid-feedback">
                                 Ок
                             </div>
@@ -195,8 +224,8 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-3 ml-2">
-                            <label for="txtname">Ім"я</label>
-                            <input type="text" class="form-control" id="txtname" placeholder="Ім'я" pattern="[A-Za-z]{1,15}" required>
+                            <label for="txteditname">Ім"я</label>
+                            <input type="text" class="form-control" id="txteditname" placeholder="Ім'я" pattern="[A-Za-z]{1,15}" required>
                             <div class="valid-feedback">
                                 Ок
                             </div>
@@ -208,8 +237,8 @@
 
                     <div class="form-row">
                         <div class="col-md-6 mb-3 ml-2">
-                            <label for="txttel">Телефон</label>
-                            <input type="text" class="phone form-control" id="txttel" placeholder="Телефон" required>
+                            <label for="txtedittel">Телефон</label>
+                            <input type="text" class="phone form-control" id="txtedittel" placeholder="Телефон" required>
                             <div class="valid-feedback">
                                 Ок
                             </div>
@@ -221,22 +250,39 @@
                     <div classs="container">
                         <h5>Чи є у вас собака:</h5>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="radiodog" id="yesdog" value="так">
+                            <input class="form-check-input" type="radio" name="radiodog" id="edityesdog" value="так">
                             <label class="form-check-label " for="yesdog">
                                 Так
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="radiodog" id="nonedog" value="ні">
+                            <input class="form-check-input" type="radio" name="radiodog" id="editnonedog" value="ні">
                             <label class="form-check-label" for="nonedog">
                                 Ні
                             </label>
                         </div>
                     </div>
+                    <!--<div class="row">
+                        <div class="col-md-3">
+                            <img src="images/mask.jpeg" width="100%"
+                                 id="imgPhoto" />
+                        </div>
+                        <input type="hidden" id="selectImageBase64" />
+                        <div class="col-md-9">
+                            <div class="custom-file">
+                                <input type="file"
+                                       class="custom-file-input"
+                                       id="fileImage"
+                                       accept=".jpg, .jpeg, .png">
+                                <label class="custom-file-label" for="fileImage">Оберіть фото...</label>
+                                <div class="invalid-feedback">Потрібно обрати фото</div>
+                            </div>
+                        </div>
+                        </div>-->
 
-                    <button type="button" class="btn btn-primary" id="buttonsave">Ок,все вірно</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ні,не впевнена</button>
-                    <!--<button type="submit" class="btn btn-primary">Перевірка</button>-->
+                        <button type="button" class="btn btn-primary" id="editbutton">Ок,все вірно</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ні,не впевнена</button>
+                        <!--<button type="submit" class="btn btn-primary">Перевірка</button>-->
                 </form>
             </div>
         </div>

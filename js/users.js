@@ -28,7 +28,11 @@ window.onload = function ()
             event.preventDefault();
             form.classList.add('was-validated');
         }, false);
-    });
+    });   
+
+
+
+
 
 
     var template = '<span class="float-left"><i class="fas fa-trash fa-1x text-danger cursor-pointer delete-service" aria-hidden="true"></i></span><b>&nbsp;&nbsp;&nbsp;</b><span><i class="far fa-edit fa-1x text-info cursor-pointer edit-service"aria-hidden="true"></i></span>';
@@ -45,38 +49,38 @@ window.onload = function ()
 
 
     let users = [
-        {
-            photo:photoTemplate1, surname: 'Петров', name: 'Олег', tel: '(068)123-45-89', dog: 'так',
-            res: template
-        },
-        {
-            photo: photoTemplate2 ,surname: 'Шевченко', name: 'Тарас', tel: '(098)123-77-89', dog: 'так',
-            res: template
-        },
-        {
-            photo: photoTemplate3 ,surname: 'Равка', name: 'Марина', tel: '(063)883-67-99', dog: 'так',
-            res: template
-        },
-        {
-            photo: photoTemplate4,surname: 'Лавренчук', name: 'Петро', tel: '(083)893-17-33', dog: 'так',
-            res: template
-        },
-        {
-            photo: photoTemplate5,surname: 'Щепков', name: 'Віктор', tel: '(083)893-17-33', dog: 'так',
-            res: template
-        },
-        {
-            photo: photoTemplate6,surname: 'Кащенко', name: 'Катерина', tel: '(083)893-52-45', dog: 'так',
-            res: template
-        },
-        {
-            photo: photoTemplate7,surname: 'Бобров', name: 'Сергій', tel: '(097)222-11-33', dog: 'ні',
-            res: template
-        },             
-        {
-            photo: photoTemplate8,surname: 'Савченко', name: 'Надія', tel: '(068)753-16-12', dog: 'так',
-            res: template
-        }
+        //{
+        //    photo:photoTemplate1, surname: 'Петров', name: 'Олег', tel: '(068)123-45-89', dog: 'так',
+        //    res: template
+        //}
+        //{
+        //    photo: photoTemplate2 ,surname: 'Шевченко', name: 'Тарас', tel: '(098)123-77-89', dog: 'так',
+        //    res: template
+        //},
+        //{
+        //    photo: photoTemplate3 ,surname: 'Равка', name: 'Марина', tel: '(063)883-67-99', dog: 'так',
+        //    res: template
+        //},
+        //{
+        //    photo: photoTemplate4,surname: 'Лавренчук', name: 'Петро', tel: '(083)893-17-33', dog: 'так',
+        //    res: template
+        //},
+        //{
+        //    photo: photoTemplate5,surname: 'Щепков', name: 'Віктор', tel: '(083)893-17-33', dog: 'так',
+        //    res: template
+        //},
+        //{
+        //    photo: photoTemplate6,surname: 'Кащенко', name: 'Катерина', tel: '(083)893-52-45', dog: 'так',
+        //    res: template
+        //},
+        //{
+        //    photo: photoTemplate7,surname: 'Бобров', name: 'Сергій', tel: '(097)222-11-33', dog: 'ні',
+        //    res: template
+        //},             
+        //{
+        //    photo: photoTemplate8,surname: 'Савченко', name: 'Надія', tel: '(068)753-16-12', dog: 'так',
+        //    res: template
+        //}
 
 
     ];
@@ -85,6 +89,9 @@ window.onload = function ()
     var txtSurName = document.getElementById("txtsurname");
     var txtName = document.getElementById("txtname");
     var txtTelephone = document.getElementById("txttel");
+    var imgPhoto = document.getElementById("imgPhoto");
+    var fileImage = document.getElementById("fileImage");
+    var selectImageBase64 = document.getElementById("selectImageBase64");
 
     //дані про наявність собаки у користувача отримуємо з чекбоксів.
     var txtDogs = document.getElementById("yesdog");
@@ -96,8 +103,38 @@ window.onload = function ()
     //кнопка на модальному вікні для зберепження даних про користувача після того як ввели всі дані.
     var butsave = document.getElementById("buttonsave");
 
-    
+    fileImage.onchange = function (e) {
+        let files;
+        if (e.dataTransfer) {
+            files = e.dataTransfer.files;
+        } else if (e.target) {
+            files = e.target.files;
+        }
+        if (files && files[0]) {
+            const file = files[0];
+            console.log(file.type);
 
+            if (file.type.match(/^image\//)) {
+                const file_name = file.name;
+                const reader = new FileReader();
+                reader.onload = function () {
+                    imgPhoto.src = reader.result;   
+                    //fileImage.src = reader.result;
+                    selectImageBase64.value = reader.result;
+                   // showSuccess(fileImage);
+                }
+
+                reader.readAsDataURL(file);
+            }
+            else {
+                alert("Невірний тип файлу");
+            }
+        }
+        else {
+            alert("Будь ласка виберіть файл");
+        }
+
+    };
     
 
     //отримуємо таблицю по айді.
@@ -109,8 +146,8 @@ window.onload = function ()
         table.appendChild(tr);
         let td;
 
-        td = document.createElement('td');
-        td.innerHTML = item.photo;
+        td = document.createElement('img');
+        td.src = item.photo;
         tr.appendChild(td);
 
         td = document.createElement('td');
@@ -150,10 +187,14 @@ window.onload = function ()
         var username = txtName.value;
         var userphone = txtTelephone.value;
         var userdog = txtDogs.value;
-        var userdognone = txtDogsNone.value;       
+        var userdognone = txtDogsNone.value;   
+        var photo = selectImageBase64.value;
+        var imgPhotos = imgPhoto.src;
 
-        td = document.createElement('td');
-        td.innerHTML = photoTemplate9;
+        td = document.createElement('img');
+        td.src = photo;
+        td.style.height = '800 px';
+        td.style.width = '90px';
         tr.appendChild(td);
 
         td = document.createElement('td');
@@ -185,15 +226,47 @@ window.onload = function ()
         tr.appendChild(td);
         table.appendChild(tr);          
 
-        txtSurName.value = txtName.value = txtTelephone.value = "";
+        txtSurName.value = txtName.value = txtTelephone.value = txtDogs.value = txtDogsNone.value = "";
+        imgPhoto.src = 'src="/images/empty.jpg"';
         $("#mymodalwindow").modal("hide");     
 
 
-        $('i.delete-service').on('click', function () {
-            //e.preventDefault();
-            var item = $(this).closest("tr");
-            console.log(item);
+        //$('i.delete-service').on('click', function (e) {
+        //    e.preventDefault();
+        //    var item = $(this).closest("tr");
+        //    console.log(item);
            
+        //    $("#modaldelete").modal("show");
+        //    $("#modalText").html("Ви зараз намагаєтесь видалити: "+item[0].children[1].firstChild.data +"  "+ item[0].children[2].firstChild.data);
+
+        //    $('#deletebutton').click(function () {
+        //        $(item).remove();
+        //        $("#modaldelete").modal("hide");
+        //    });
+
+        //});
+
+        //$('i.edit-service').on('click', function (e) {
+        //    e.preventDefault();
+        //    $("#editmodalwindow").modal("show");
+        //    var item = $(this).closest("tr");
+
+        //    $('#editbutton').click(function () {
+
+        //        $("#editmodalwindow").modal("hide");
+        //    });
+        //})
+
+
+        
+       
+    }  
+
+      $('i.delete-service').on('click', function (e) {
+            e.preventDefault();
+            var item = $(this).closest("tr");
+            //console.log(item);
+
             $("#modaldelete").modal("show");
             $("#modalText").html("Ви зараз намагаєтесь видалити: "+item[0].children[1].firstChild.data +"  "+ item[0].children[2].firstChild.data);
 
@@ -202,19 +275,75 @@ window.onload = function ()
                 $("#modaldelete").modal("hide");
             });
 
-        });
-        
-       
-    }  
-      
-    $('i.edit-service').on('click', function () {
+         })
 
+    $('i.edit-service').on('click', function (e) {
+        e.preventDefault();
         $("#editmodalwindow").modal("show");
+        var tr = $(this).closest("tr");
+        //var table = document.getElementById("table");
+        var txteditsurname = tr[0].children[1].firstChild.data;
+        const inputType = document.querySelector('input[id="txteditsurname"]');
+        inputType.value = txteditsurname;      
+
+        $('#editbutton').click(function () {
+
+            var news = document.getElementById("txteditsurname").value;
+            tr[0].children[1].innerHTML = news;
+            $("#editmodalwindow").modal("hide");
+        });
+
+
+
+
+
+        //var txteditsurname = document.getElementById("txteditsurname").value;
+        //table.rows[rIndex] = txteditsurname;
+        //var table = document.getElementById("table");
+        
+
+        //var rowCount = table.rows.length;
+        //for (var i = 1; i < rowCount; i++) {
+        //    var row = table.rows[i];
+        //    var chkbox = row.cells[0].childNodes[0];
+        //    if (null != chkbox) {
+        //        var txteditsurname = document.getElementById("txtsurname");
+        //        row.cells[1].innerHTML = txteditsurname.value;
+        //    }
+            //document.getElementById("txteditsurname").value = row.cells[1].innerHTML;
+            //document.getElementById("txteditname").value = row.cells[2].innerHTML;
+            //document.getElementById("txtedittel").value = row.cells[3].innerHTML;
+            //document.getElementById("edityesdog").value = row.cells[4].innerHTML;
+
+        //}
+      // 
+      //  console.log(x);
+      //  var txteditname = document.getElementById("txtname");
+      //  var txtedittel = document.getElementById("txttel");
+      //  if (document.getElementById("yesdog").checked)
+      //      var edityesdog = document.getElementById("yesdog");
+      //  else {
+            
+      //     var editnonedog = document.getElementById("nonedog");
+      //  }
+      //x[1].innerHTML = txteditsurname.value;
+        //tr.innerHTML = txteditsurname.value;
+        /*tr.children[0].firstChild.data= txteditsurname.value;*/
+        //tr.cells.item(2).innerHTML = txteditname.value;
+        //tr.cells.item(3).innerHTML = txtedittel.value;
+        //if (document.getElementById("yesdog").checked)
+        //    tr.cells(4).innerHTML = edityesdog.value;
+        //else {
+
+        //    tr.cells(4).item.innerHTML = editnonedog.value;
+        //}
+        
+
+       
     })
 
    
 }
-
 
 
 
