@@ -39,8 +39,8 @@ i {
     .files input:focus {
         outline: 2px dashed #FF0000;
         outline-offset: -10px;
-        -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
-        transition: outline-offset .15s ease-in-out, background-color .15s linear;
+       /* -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+        transition: outline-offset .15s ease-in-out, background-color .15s linear;*/
         border: 1px solid #FF0000;
     }
 
@@ -57,10 +57,10 @@ i {
         right: 0;
         height: 56px;
         content: "";
-        background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+        /*background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);*/
         display: block;
         margin: 0 auto;
-        background-size: 100%;
+        background-size: cover;
         background-repeat: no-repeat;
     }
 
@@ -71,7 +71,7 @@ i {
 .files:before {
     position: absolute;
     bottom: 2px;
-    left: 0;
+    left: 0px;
     pointer-events: none;
     width: 100%;
     right: 0;

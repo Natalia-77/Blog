@@ -33,10 +33,8 @@ window.onload = function ()
 
 
 
-
-
     var template = '<span class="float-left"><i class="fas fa-trash fa-1x text-danger cursor-pointer delete-service" aria-hidden="true"></i></span><b>&nbsp;&nbsp;&nbsp;</b><span><i class="far fa-edit fa-1x text-info cursor-pointer edit-service"aria-hidden="true"></i></span>';
-    var photoTemplate1 = '<img class="img-fluid " width="90" height="800" src="/images/face1.jpg">';
+
     var photoTemplate2 = '<img class="img-fluid " width="90" height="800" src="/images/face2.jpg">';
     var photoTemplate3 = '<img class="img-fluid " width="90" height="800" src="/images/face3.jpg">';
     var photoTemplate4 = '<img class="img-fluid " width="120" height="800" src="/images/face4.jpg">';
@@ -49,10 +47,10 @@ window.onload = function ()
 
 
     let users = [
-        //{
-        //    photo:photoTemplate1, surname: 'Петров', name: 'Олег', tel: '(068)123-45-89', dog: 'так',
-        //    res: template
-        //}
+        {
+            photo:photoTemplate2, surname: 'Петров', name: 'Олег', tel: '(068)123-45-89', dog: 'так',
+            res: template
+        }
         //{
         //    photo: photoTemplate2 ,surname: 'Шевченко', name: 'Тарас', tel: '(098)123-77-89', dog: 'так',
         //    res: template
@@ -90,9 +88,10 @@ window.onload = function ()
     var txtName = document.getElementById("txtname");
     var txtTelephone = document.getElementById("txttel");
     var imgPhoto = document.getElementById("imgPhoto");
+    var imgPhotoedit = document.getElementById("imgPhotoedit");
     var fileImage = document.getElementById("fileImage");
     var selectImageBase64 = document.getElementById("selectImageBase64");
-
+    var selectImageBase64edit = document.getElementById("selectImageBase64edit");
     //дані про наявність собаки у користувача отримуємо з чекбоксів.
     var txtDogs = document.getElementById("yesdog");
     var txtDogsNone = document.getElementById("nonedog");
@@ -119,7 +118,7 @@ window.onload = function ()
                 const reader = new FileReader();
                 reader.onload = function () {
                     imgPhoto.src = reader.result;   
-                    //fileImage.src = reader.result;
+                   // fileImage.src = reader.result;
                     selectImageBase64.value = reader.result;
                    // showSuccess(fileImage);
                 }
@@ -127,14 +126,55 @@ window.onload = function ()
                 reader.readAsDataURL(file);
             }
             else {
-                alert("Невірний тип файлу");
+                alert("Уточніть тип");
             }
         }
         else {
-            alert("Будь ласка виберіть файл");
+            alert("Виберіть інше");
         }
 
     };
+
+    fileImageedit.onchange = function (e) {
+        let files;
+        if (e.dataTransfer) {
+            files = e.dataTransfer.files;
+        } else if (e.target) {
+            files = e.target.files;
+        }
+        if (files && files[0]) {
+            const file = files[0];
+            console.log(file.type);
+
+            if (file.type.match(/^image\//)) {
+                const file_name = file.name;
+                const reader = new FileReader();
+                reader.onload = function () {
+                    imgPhotoedit.src = reader.result;
+                    // fileImage.src = reader.result;
+                    selectImageBase64edit.value = reader.result;
+                    console.log(selectImageBase64edit.value);
+                    // showSuccess(fileImage);
+                }
+
+                reader.readAsDataURL(file);
+            }
+            else {
+                alert("Уточніть тип");
+            }
+        }
+        else {
+            alert("Виберіть інше");
+        }
+
+    };
+
+
+
+
+
+
+
     
 
     //отримуємо таблицю по айді.
@@ -146,8 +186,8 @@ window.onload = function ()
         table.appendChild(tr);
         let td;
 
-        td = document.createElement('img');
-        td.src = item.photo;
+        td = document.createElement('td');
+        td.innerHTML = item.photo;       
         tr.appendChild(td);
 
         td = document.createElement('td');
@@ -189,12 +229,10 @@ window.onload = function ()
         var userdog = txtDogs.value;
         var userdognone = txtDogsNone.value;   
         var photo = selectImageBase64.value;
-        var imgPhotos = imgPhoto.src;
+        //var imgPhotos = imgPhoto.src;
 
-        td = document.createElement('img');
-        td.src = photo;
-        td.style.height = '800 px';
-        td.style.width = '90px';
+        td = document.createElement('td');
+        td.innerHTML = `<img src = "${photo}" class="img-fluid"  width="90" height="800">`;        
         tr.appendChild(td);
 
         td = document.createElement('td');
@@ -227,35 +265,74 @@ window.onload = function ()
         table.appendChild(tr);          
 
         txtSurName.value = txtName.value = txtTelephone.value = txtDogs.value = txtDogsNone.value = "";
-        imgPhoto.src = 'src="/images/empty.jpg"';
+        imgPhoto.src ='/images/empty.jpg';
         $("#mymodalwindow").modal("hide");     
 
 
-        //$('i.delete-service').on('click', function (e) {
-        //    e.preventDefault();
-        //    var item = $(this).closest("tr");
-        //    console.log(item);
+        $('i.delete-service').on('click', function (e) {
+            e.preventDefault();
+            var item = $(this).closest("tr");
+            console.log(item);
            
-        //    $("#modaldelete").modal("show");
-        //    $("#modalText").html("Ви зараз намагаєтесь видалити: "+item[0].children[1].firstChild.data +"  "+ item[0].children[2].firstChild.data);
+            $("#modaldelete").modal("show");
+            $("#modalText").html("Ви зараз намагаєтесь видалити: "+item[0].children[1].firstChild.data +"  "+ item[0].children[2].firstChild.data);
 
-        //    $('#deletebutton').click(function () {
-        //        $(item).remove();
-        //        $("#modaldelete").modal("hide");
-        //    });
+            $('#deletebutton').click(function () {
+                $(item).remove();
+                $("#modaldelete").modal("hide");
+            });
 
-        //});
+        });
 
-        //$('i.edit-service').on('click', function (e) {
-        //    e.preventDefault();
-        //    $("#editmodalwindow").modal("show");
-        //    var item = $(this).closest("tr");
+        $('i.edit-service').on('click', function (e) {
+            e.preventDefault();
+            $("#editmodalwindow").modal("show");
+            var tr = $(this).closest("tr");
+            //console.log(tr);
+            //var table = document.getElementById("table");
+            var txteditsurname = tr[0].children[1].firstChild.data;
+            var txteditname = tr[0].children[2].firstChild.data;
+            var txtedittel = tr[0].children[3].firstChild.data;
+            //var txteditphoto = tr[0].childNodes[0].currentSrc;
+            var txteditphoto = tr[0].firstChild.children[0].currentSrc;
+           
+           // var txteditphoto = tr[0].childNodes[0].innerHTML;
 
-        //    $('#editbutton').click(function () {
+            //console.log(txteditphoto);
 
-        //        $("#editmodalwindow").modal("hide");
-        //    });
-        //})
+            //Отримую по айді відповідні інпути та фото,де мають відображатись відповідні дані(до редагування).
+            const inputType = document.querySelector('input[id="txteditsurname"]');
+            const inputTypeName = document.querySelector('input[id="txteditname"]');
+            const inputTypePhone = document.querySelector('input[id="txtedittel"]');
+            const imgTypePhoto = document.querySelector('img[id="imgPhotoedit"]');
+
+            //У отримані інпути та фото вставляю отримані дані,про конкретного користувача(до редагування).
+            inputType.value = txteditsurname;
+            inputTypeName.value = txteditname;
+            inputTypePhone.value = txtedittel;
+            imgTypePhoto.src =txteditphoto;
+
+            //натиснула кнопку ОК і у відповідно до відкоригованих(нових)даних заповнюю основну таблицю.
+            $('#editbutton').click(function () {
+                var photoedited = selectImageBase64edit.value;
+                //console.log(photoedited);
+                var newsurname = document.getElementById("txteditsurname").value;
+                var newname = document.getElementById("txteditname").value;
+                var newtel = document.getElementById("txtedittel").value;
+                var newphoto = `<img src = "${photoedited}" class="img-fluid"  width="90" height="800">`;
+                tr[0].children[1].innerHTML = newsurname;
+                tr[0].children[2].innerHTML = newname;
+                tr[0].children[3].innerHTML = newtel;
+                tr[0].children[0].innerHTML = newphoto;
+                console.log(newphoto);
+
+
+
+                $("#editmodalwindow").modal("hide");
+            });
+
+
+        })
 
 
         
@@ -275,7 +352,7 @@ window.onload = function ()
                 $("#modaldelete").modal("hide");
             });
 
-         })
+      })
 
     $('i.edit-service').on('click', function (e) {
         e.preventDefault();
