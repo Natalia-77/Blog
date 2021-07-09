@@ -166,15 +166,7 @@ window.onload = function ()
             alert("Виберіть інше");
         }
 
-    };
-
-
-
-
-
-
-
-    
+    };    
 
     //отримуємо таблицю по айді.
     let table = document.querySelector('#table');
@@ -207,8 +199,7 @@ window.onload = function ()
 
         td = document.createElement('td');
         td.innerHTML = item.res;        
-        tr.appendChild(td);
-        
+        tr.appendChild(td);       
 
     }
 
@@ -229,8 +220,7 @@ window.onload = function ()
         var userphone = txtTelephone.value;
         var userdog = txtDogs.value;
         var userdognone = txtDogsNone.value;   
-        var photo = selectImageBase64.value;
-        //var imgPhotos = imgPhoto.src;
+        var photo = selectImageBase64.value;       
 
         td = document.createElement('td');
         td.innerHTML = `<img src = "${photo}" class="img-fluid"  width="120" height="800">`;        
@@ -276,34 +266,19 @@ window.onload = function ()
     $('body').on('click', "i.edit-service", function () {
 
         $("#editmodalwindow").modal("show");
-        trEdit = $(this).closest("tr");
-        //console.log(trEdit);
+        trEdit = $(this).closest("tr");       
 
         var txteditphoto = trEdit[0].cells[0].firstChild.currentSrc;
         var txteditsurname = trEdit[0].cells[1].innerHTML;
         var txteditname = trEdit[0].cells[2].innerHTML;
         var txtedittel = trEdit[0].cells[3].innerHTML;       
-        var txtdog = trEdit[0].cells[4].innerHTML;
-        //console.log(txtdog);
-
-        //var txteditphoto = trEdit[0].innerHTML;
-        //var txteditsurname = trEdit[1].innerHTML;
-        //var txteditname = trEdit[2].innerHTML;
-        //var txtedittel = trEdit[3].innerHTML;
-        //console.log(txteditphoto);
-
-        //var txteditname = trEdit[0].children[2].firstChild.data;
-        //var txtedittel = trEdit[0].children[3].firstChild.data;            
-        //var txteditphoto = trEdit[0].firstChild.children[0].currentSrc;         
-        //console.log(txteditphoto);
+        var txtdog = trEdit[0].cells[4].innerHTML;       
 
         //Отримую по айді відповідні інпути та фото,де мають відображатись відповідні дані(до редагування).
         const inputType = document.querySelector('input[id="txteditsurname"]');
         const inputTypeName = document.querySelector('input[id="txteditname"]');
         const inputTypePhone = document.querySelector('input[id="txtedittel"]');
-        const imgTypePhoto = document.querySelector('img[id="imgPhotoedit"]');
-        //const imgTypeDogYes = document.querySelector('radio[id="edityesdog"]');
-        //const imgTypeDogNo = document.querySelector('input[id="editnonedog"]');
+        const imgTypePhoto = document.querySelector('img[id="imgPhotoedit"]');   
 
 
         //У отримані інпути та фото вставляю отримані дані,про конкретного користувача(до редагування).
@@ -326,20 +301,30 @@ window.onload = function ()
 
     //натиснула кнопку ОК і у відповідно до відкоригованих(нових)даних заповнюю основну таблицю.
     $('#editbutton').click(function () {
-        //console.log(trEdit);
+        
         var photo = document.getElementById("imgPhotoedit").src;
        // console.log(photo);
      
         var newsurname = document.getElementById("txteditsurname").value;
         var newname = document.getElementById("txteditname").value;
-        var newtel = document.getElementById("txtedittel").value;           
+        var newtel = document.getElementById("txtedittel").value; 
+        var newdogsyes = document.getElementById("edityesdog").value;
+        var newdogsnone = document.getElementById("editnonedog").value;
         var newphoto = `<img src = "${photo}" class="img-fluid"  width="120" height="800">`;   
+
        
         trEdit[0].cells[0].innerHTML = newphoto;
         trEdit[0].cells[1].innerHTML = newsurname;
         trEdit[0].cells[2].innerHTML = newname;
         trEdit[0].cells[3].innerHTML = newtel;
-        selectImageBase64edit.value == null;
+
+        if (document.getElementById("edityesdog").checked) {
+            trEdit[0].cells[4].innerHTML = newdogsyes;
+        }
+        else {
+            trEdit[0].cells[4].innerHTML = newdogsnone;
+        }        
+       
         $("#editmodalwindow").modal("hide");
     });
 
