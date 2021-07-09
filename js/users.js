@@ -233,7 +233,7 @@ window.onload = function ()
         //var imgPhotos = imgPhoto.src;
 
         td = document.createElement('td');
-        td.innerHTML = `<img src = "${photo}" class="img-fluid"  width="90" height="800">`;        
+        td.innerHTML = `<img src = "${photo}" class="img-fluid"  width="120" height="800">`;        
         tr.appendChild(td);
 
         td = document.createElement('td');
@@ -328,35 +328,13 @@ window.onload = function ()
     $('#editbutton').click(function () {
         //console.log(trEdit);
         var photo = document.getElementById("imgPhotoedit").src;
-        console.log(photo);
-      /*  if (selectImageBase64edit.value != null) {*/
-       
-            //console.log(selectImageBase64edit.value);
-             photoedited = selectImageBase64edit.value;
-            
-        //}
-        //if (selectImageBase64edit.value == null) {
-        //    photoedited = photo;
-        //}
-        //if (selectImageBase64edit.value == null) {
-        //   var photoedited = txteditphoto;
-
-        //    console.log(photoedited);
-        //}
-        //var photoedited = selectImageBase64edit.value;
-        ////console.log(photoedited);
+       // console.log(photo);
+     
         var newsurname = document.getElementById("txteditsurname").value;
         var newname = document.getElementById("txteditname").value;
         var newtel = document.getElementById("txtedittel").value;           
-        var newphoto = `<img src = "${photo}" class="img-fluid"  width="90" height="800">`;   
+        var newphoto = `<img src = "${photo}" class="img-fluid"  width="120" height="800">`;   
        
-        //console.log(newphoto);
-        //tr[0].children[1].innerHTML = newsurname;
-        //tr[0].children[2].innerHTML = newname;
-        //tr[0].children[3].innerHTML = newtel;
-       // tr[0].children[0].innerHTML = newphoto;   
-        //trEdit[0].children[2].firstChild.data = newname;
-        // trEdit.find("td")[2].innerHTML = newname;
         trEdit[0].cells[0].innerHTML = newphoto;
         trEdit[0].cells[1].innerHTML = newsurname;
         trEdit[0].cells[2].innerHTML = newname;
