@@ -12,7 +12,7 @@ $(document).ready(function () {
 
 window.onload = function ()
 {
-
+    let trEdit;
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
     var forms = document.getElementsByClassName('needs-validation');
     // Loop over them and prevent submission
@@ -33,8 +33,7 @@ window.onload = function ()
 
 
 
-    var template = '<span class="float-left"><i class="fas fa-trash fa-1x text-danger cursor-pointer delete-service" aria-hidden="true"></i></span><b>&nbsp;&nbsp;&nbsp;</b><span><i class="far fa-edit fa-1x text-info cursor-pointer edit-service"aria-hidden="true"></i></span>';
-
+    var template = '<span class="float-left"><i class="fas fa-trash fa-1x text-danger cursor-pointer delete-service" aria-hidden="true"></i></span><b>&nbsp;&nbsp;&nbsp;</b><span><i class="far fa-edit fa-1x text-info cursor-pointer edit-service" aria-hidden="true"></i></span>';
     var photoTemplate2 = '<img class="img-fluid " width="90" height="800" src="/images/face2.jpg">';
     var photoTemplate3 = '<img class="img-fluid " width="90" height="800" src="/images/face3.jpg">';
     var photoTemplate4 = '<img class="img-fluid " width="120" height="800" src="/images/face4.jpg">';
@@ -50,35 +49,35 @@ window.onload = function ()
         {
             photo:photoTemplate2, surname: 'Петров', name: 'Олег', tel: '(068)123-45-89', dog: 'так',
             res: template
+        },
+        {
+            photo: photoTemplate3 ,surname: 'Шевченко', name: 'Тарас', tel: '(098)123-77-89', dog: 'так',
+            res: template
+        },
+        {
+            photo: photoTemplate4 ,surname: 'Равка', name: 'Марина', tel: '(063)883-67-99', dog: 'так',
+            res: template
+        },
+        {
+            photo: photoTemplate5,surname: 'Лавренчук', name: 'Петро', tel: '(083)893-17-33', dog: 'так',
+            res: template
+        },
+        {
+            photo: photoTemplate6,surname: 'Щепков', name: 'Віктор', tel: '(083)893-17-33', dog: 'так',
+            res: template
+        },
+        {
+            photo: photoTemplate7,surname: 'Кащенко', name: 'Катерина', tel: '(083)893-52-45', dog: 'так',
+            res: template
+        },
+        {
+            photo: photoTemplate9,surname: 'Бобров', name: 'Сергій', tel: '(097)222-11-33', dog: 'ні',
+            res: template
+        },             
+        {
+            photo: photoTemplate8,surname: 'Савченко', name: 'Надія', tel: '(068)753-16-12', dog: 'так',
+            res: template
         }
-        //{
-        //    photo: photoTemplate2 ,surname: 'Шевченко', name: 'Тарас', tel: '(098)123-77-89', dog: 'так',
-        //    res: template
-        //},
-        //{
-        //    photo: photoTemplate3 ,surname: 'Равка', name: 'Марина', tel: '(063)883-67-99', dog: 'так',
-        //    res: template
-        //},
-        //{
-        //    photo: photoTemplate4,surname: 'Лавренчук', name: 'Петро', tel: '(083)893-17-33', dog: 'так',
-        //    res: template
-        //},
-        //{
-        //    photo: photoTemplate5,surname: 'Щепков', name: 'Віктор', tel: '(083)893-17-33', dog: 'так',
-        //    res: template
-        //},
-        //{
-        //    photo: photoTemplate6,surname: 'Кащенко', name: 'Катерина', tel: '(083)893-52-45', dog: 'так',
-        //    res: template
-        //},
-        //{
-        //    photo: photoTemplate7,surname: 'Бобров', name: 'Сергій', tel: '(097)222-11-33', dog: 'ні',
-        //    res: template
-        //},             
-        //{
-        //    photo: photoTemplate8,surname: 'Савченко', name: 'Надія', tel: '(068)753-16-12', dog: 'так',
-        //    res: template
-        //}
 
 
     ];
@@ -216,11 +215,13 @@ window.onload = function ()
     
     
     buttonadd.onclick = function (e) {
+        txtSurName.value = txtName.value = txtTelephone.value = txtDogs.value = txtDogsNone.value = "";
         $("#mymodalwindow").modal("show");
     };
 
     //обробник кліка для кнопки на модальному вікні Зберегти.
     butsave.onclick = function (e) {
+       
         tr = document.createElement('tr');        
 
         var usersurname = txtSurName.value;
@@ -246,8 +247,7 @@ window.onload = function ()
         td = document.createElement('td');
         td.innerHTML = userphone;
         tr.appendChild(td);
-
-        
+                
        // Dogs       
         td = document.createElement('td');
         if (document.getElementById("yesdog").checked) {
@@ -264,162 +264,126 @@ window.onload = function ()
         tr.appendChild(td);
         table.appendChild(tr);          
 
-        txtSurName.value = txtName.value = txtTelephone.value = txtDogs.value = txtDogsNone.value = "";
+        txtSurName.value = txtName.value = txtTelephone.value = txtDogs.value = txtDogsNone.value= "";
         imgPhoto.src ='/images/empty.jpg';
-        $("#mymodalwindow").modal("hide");     
-
-
-        $('i.delete-service').on('click', function (e) {
-            e.preventDefault();
-            var item = $(this).closest("tr");
-            console.log(item);
-           
-            $("#modaldelete").modal("show");
-            $("#modalText").html("Ви зараз намагаєтесь видалити: "+item[0].children[1].firstChild.data +"  "+ item[0].children[2].firstChild.data);
-
-            $('#deletebutton').click(function () {
-                $(item).remove();
-                $("#modaldelete").modal("hide");
-            });
-
-        });
-
-        $('i.edit-service').on('click', function (e) {
-            e.preventDefault();
-            $("#editmodalwindow").modal("show");
-            var tr = $(this).closest("tr");
-            //console.log(tr);
-            //var table = document.getElementById("table");
-            var txteditsurname = tr[0].children[1].firstChild.data;
-            var txteditname = tr[0].children[2].firstChild.data;
-            var txtedittel = tr[0].children[3].firstChild.data;
-            //var txteditphoto = tr[0].childNodes[0].currentSrc;
-            var txteditphoto = tr[0].firstChild.children[0].currentSrc;
-           
-           // var txteditphoto = tr[0].childNodes[0].innerHTML;
-
-            //console.log(txteditphoto);
-
-            //Отримую по айді відповідні інпути та фото,де мають відображатись відповідні дані(до редагування).
-            const inputType = document.querySelector('input[id="txteditsurname"]');
-            const inputTypeName = document.querySelector('input[id="txteditname"]');
-            const inputTypePhone = document.querySelector('input[id="txtedittel"]');
-            const imgTypePhoto = document.querySelector('img[id="imgPhotoedit"]');
-
-            //У отримані інпути та фото вставляю отримані дані,про конкретного користувача(до редагування).
-            inputType.value = txteditsurname;
-            inputTypeName.value = txteditname;
-            inputTypePhone.value = txtedittel;
-            imgTypePhoto.src =txteditphoto;
-
-            //натиснула кнопку ОК і у відповідно до відкоригованих(нових)даних заповнюю основну таблицю.
-            $('#editbutton').click(function () {
-                var photoedited = selectImageBase64edit.value;
-                //console.log(photoedited);
-                var newsurname = document.getElementById("txteditsurname").value;
-                var newname = document.getElementById("txteditname").value;
-                var newtel = document.getElementById("txtedittel").value;
-                var newphoto = `<img src = "${photoedited}" class="img-fluid"  width="90" height="800">`;
-                tr[0].children[1].innerHTML = newsurname;
-                tr[0].children[2].innerHTML = newname;
-                tr[0].children[3].innerHTML = newtel;
-                tr[0].children[0].innerHTML = newphoto;
-                console.log(newphoto);
-
-
-
-                $("#editmodalwindow").modal("hide");
-            });
-
-
-        })
-
-
+        $("#mymodalwindow").modal("hide"); 
+          
         
        
     }  
 
-      $('i.delete-service').on('click', function (e) {
-            e.preventDefault();
-            var item = $(this).closest("tr");
-            //console.log(item);
+    //обробник кліка на кнопку РЕДАГУВВТИ.
+    $('body').on('click', "i.edit-service", function () {
 
-            $("#modaldelete").modal("show");
-            $("#modalText").html("Ви зараз намагаєтесь видалити: "+item[0].children[1].firstChild.data +"  "+ item[0].children[2].firstChild.data);
-
-            $('#deletebutton').click(function () {
-                $(item).remove();
-                $("#modaldelete").modal("hide");
-            });
-
-      })
-
-    $('i.edit-service').on('click', function (e) {
-        e.preventDefault();
         $("#editmodalwindow").modal("show");
-        var tr = $(this).closest("tr");
-        //var table = document.getElementById("table");
-        var txteditsurname = tr[0].children[1].firstChild.data;
+        trEdit = $(this).closest("tr");
+        //console.log(trEdit);
+
+        var txteditphoto = trEdit[0].cells[0].firstChild.currentSrc;
+        var txteditsurname = trEdit[0].cells[1].innerHTML;
+        var txteditname = trEdit[0].cells[2].innerHTML;
+        var txtedittel = trEdit[0].cells[3].innerHTML;       
+        var txtdog = trEdit[0].cells[4].innerHTML;
+        //console.log(txtdog);
+
+        //var txteditphoto = trEdit[0].innerHTML;
+        //var txteditsurname = trEdit[1].innerHTML;
+        //var txteditname = trEdit[2].innerHTML;
+        //var txtedittel = trEdit[3].innerHTML;
+        //console.log(txteditphoto);
+
+        //var txteditname = trEdit[0].children[2].firstChild.data;
+        //var txtedittel = trEdit[0].children[3].firstChild.data;            
+        //var txteditphoto = trEdit[0].firstChild.children[0].currentSrc;         
+        //console.log(txteditphoto);
+
+        //Отримую по айді відповідні інпути та фото,де мають відображатись відповідні дані(до редагування).
         const inputType = document.querySelector('input[id="txteditsurname"]');
-        inputType.value = txteditsurname;      
+        const inputTypeName = document.querySelector('input[id="txteditname"]');
+        const inputTypePhone = document.querySelector('input[id="txtedittel"]');
+        const imgTypePhoto = document.querySelector('img[id="imgPhotoedit"]');
+        //const imgTypeDogYes = document.querySelector('radio[id="edityesdog"]');
+        //const imgTypeDogNo = document.querySelector('input[id="editnonedog"]');
 
-        $('#editbutton').click(function () {
 
-            var news = document.getElementById("txteditsurname").value;
-            tr[0].children[1].innerHTML = news;
-            $("#editmodalwindow").modal("hide");
+        //У отримані інпути та фото вставляю отримані дані,про конкретного користувача(до редагування).
+        inputType.value = txteditsurname;
+        inputTypeName.value = txteditname;
+        inputTypePhone.value = txtedittel;
+        imgTypePhoto.src = txteditphoto;
+
+        //перевіряю,яке значення в мене записано в чекбоксах.
+        //якщо "ні",то я роблю чекнутим відповідний чекбокс з value "ні"
+        if (txtdog == "ні") {
+            $('#editnonedog').prop('checked', true);
+        }
+        else {
+            $('#edityesdog').prop('checked', true);
+        }
+       
+
+    });
+
+    //натиснула кнопку ОК і у відповідно до відкоригованих(нових)даних заповнюю основну таблицю.
+    $('#editbutton').click(function () {
+        //console.log(trEdit);
+        var photo = document.getElementById("imgPhotoedit").src;
+        console.log(photo);
+      /*  if (selectImageBase64edit.value != null) {*/
+       
+            //console.log(selectImageBase64edit.value);
+             photoedited = selectImageBase64edit.value;
+            
+        //}
+        //if (selectImageBase64edit.value == null) {
+        //    photoedited = photo;
+        //}
+        //if (selectImageBase64edit.value == null) {
+        //   var photoedited = txteditphoto;
+
+        //    console.log(photoedited);
+        //}
+        //var photoedited = selectImageBase64edit.value;
+        ////console.log(photoedited);
+        var newsurname = document.getElementById("txteditsurname").value;
+        var newname = document.getElementById("txteditname").value;
+        var newtel = document.getElementById("txtedittel").value;           
+        var newphoto = `<img src = "${photo}" class="img-fluid"  width="90" height="800">`;   
+       
+        //console.log(newphoto);
+        //tr[0].children[1].innerHTML = newsurname;
+        //tr[0].children[2].innerHTML = newname;
+        //tr[0].children[3].innerHTML = newtel;
+       // tr[0].children[0].innerHTML = newphoto;   
+        //trEdit[0].children[2].firstChild.data = newname;
+        // trEdit.find("td")[2].innerHTML = newname;
+        trEdit[0].cells[0].innerHTML = newphoto;
+        trEdit[0].cells[1].innerHTML = newsurname;
+        trEdit[0].cells[2].innerHTML = newname;
+        trEdit[0].cells[3].innerHTML = newtel;
+        selectImageBase64edit.value == null;
+        $("#editmodalwindow").modal("hide");
+    });
+
+    //видалення користувача.
+    $('i.delete-service').on('click', function (e) {
+        e.preventDefault();
+        var item = $(this).closest("tr");
+        console.log(item);
+
+        $("#modaldelete").modal("show");
+        $("#modalText").html("Ви зараз намагаєтесь видалити: " + item[0].children[1].firstChild.data + "  " + item[0].children[2].firstChild.data);
+
+        $('#deletebutton').click(function () {
+            $(item).remove();
+            $("#modaldelete").modal("hide");
         });
 
+    });    
 
-
-
-
-        //var txteditsurname = document.getElementById("txteditsurname").value;
-        //table.rows[rIndex] = txteditsurname;
-        //var table = document.getElementById("table");
-        
-
-        //var rowCount = table.rows.length;
-        //for (var i = 1; i < rowCount; i++) {
-        //    var row = table.rows[i];
-        //    var chkbox = row.cells[0].childNodes[0];
-        //    if (null != chkbox) {
-        //        var txteditsurname = document.getElementById("txtsurname");
-        //        row.cells[1].innerHTML = txteditsurname.value;
-        //    }
-            //document.getElementById("txteditsurname").value = row.cells[1].innerHTML;
-            //document.getElementById("txteditname").value = row.cells[2].innerHTML;
-            //document.getElementById("txtedittel").value = row.cells[3].innerHTML;
-            //document.getElementById("edityesdog").value = row.cells[4].innerHTML;
-
-        //}
-      // 
-      //  console.log(x);
-      //  var txteditname = document.getElementById("txtname");
-      //  var txtedittel = document.getElementById("txttel");
-      //  if (document.getElementById("yesdog").checked)
-      //      var edityesdog = document.getElementById("yesdog");
-      //  else {
-            
-      //     var editnonedog = document.getElementById("nonedog");
-      //  }
-      //x[1].innerHTML = txteditsurname.value;
-        //tr.innerHTML = txteditsurname.value;
-        /*tr.children[0].firstChild.data= txteditsurname.value;*/
-        //tr.cells.item(2).innerHTML = txteditname.value;
-        //tr.cells.item(3).innerHTML = txtedittel.value;
-        //if (document.getElementById("yesdog").checked)
-        //    tr.cells(4).innerHTML = edityesdog.value;
-        //else {
-
-        //    tr.cells(4).item.innerHTML = editnonedog.value;
-        //}
-        
 
        
-    })
-
-   
+    
 }
 
 
