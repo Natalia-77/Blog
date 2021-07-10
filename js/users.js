@@ -1,7 +1,5 @@
 ﻿
 
-
-
 $(document).ready(function () {
 
     $('.phone').inputmask('(099)999-99-99');   
@@ -9,26 +7,25 @@ $(document).ready(function () {
 });
 
 
-
 window.onload = function ()
 {
     let trEdit;
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
-    // Loop over them and prevent submission
-    var validation = Array.prototype.filter.call(forms, function (form) {
-        form.addEventListener('submit', function (event) {
-            //console.log(document.getElementById("yesdog").checked);
-            //console.log(document.getElementById("nonedog").checked);
-            if (form.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
+    //var forms = document.getElementsByClassName('needs-validation');
+    //// Loop over them and prevent submission
+    //var validation = Array.prototype.filter.call(forms, function (form) {
+    //    form.addEventListener('submit', function (event) {
+    //        //console.log(document.getElementById("yesdog").checked);
+    //        //console.log(document.getElementById("nonedog").checked);
+    //        if (form.checkValidity() === false) {
+    //            event.preventDefault();
+    //            event.stopPropagation();
 
-            }
-            event.preventDefault();
-            form.classList.add('was-validated');
-        }, false);
-    });   
+    //        }
+    //        event.preventDefault();
+    //        form.classList.add('was-validated');
+    //    }, false);
+    //});   
 
 
 
@@ -89,8 +86,10 @@ window.onload = function ()
     var imgPhoto = document.getElementById("imgPhoto");
     var imgPhotoedit = document.getElementById("imgPhotoedit");
     var fileImage = document.getElementById("fileImage");
+    var fileImageedit = document.getElementById("fileImageedit");
     var selectImageBase64 = document.getElementById("selectImageBase64");
     var selectImageBase64edit = document.getElementById("selectImageBase64edit");
+
     //дані про наявність собаки у користувача отримуємо з чекбоксів.
     var txtDogs = document.getElementById("yesdog");
     var txtDogsNone = document.getElementById("nonedog");
@@ -119,7 +118,7 @@ window.onload = function ()
                     imgPhoto.src = reader.result;   
                    // fileImage.src = reader.result;
                     selectImageBase64.value = reader.result;
-                   // showSuccess(fileImage);
+                    showSuccess(fileImage);
                 }
 
                 reader.readAsDataURL(file);
@@ -149,11 +148,9 @@ window.onload = function ()
                 const file_name = file.name;
                 const reader = new FileReader();
                 reader.onload = function () {
-                    imgPhotoedit.src = reader.result;
-                    // fileImage.src = reader.result;
+                    imgPhotoedit.src = reader.result;                   
                     selectImageBase64edit.value = reader.result;
-                    console.log(selectImageBase64edit.value);
-                    // showSuccess(fileImage);
+                    showSuccess(fileImageedit);
                 }
 
                 reader.readAsDataURL(file);
@@ -206,59 +203,63 @@ window.onload = function ()
     
     
     buttonadd.onclick = function (e) {
-        txtSurName.value = txtName.value = txtTelephone.value = txtDogs.value = txtDogsNone.value = "";
+       
         $("#mymodalwindow").modal("show");
     };
 
     //обробник кліка для кнопки на модальному вікні Зберегти.
     butsave.onclick = function (e) {
        
-        tr = document.createElement('tr');        
+        if (isValidate()) {
+            tr = document.createElement('tr');
 
-        var usersurname = txtSurName.value;
-        var username = txtName.value;
-        var userphone = txtTelephone.value;
-        var userdog = txtDogs.value;
-        var userdognone = txtDogsNone.value;   
-        var photo = selectImageBase64.value;       
+            var usersurname = txtSurName.value;
+            var username = txtName.value;
+            var userphone = txtTelephone.value;
+            var userdog = txtDogs.value;
+            var userdognone = txtDogsNone.value;
+            var photo = selectImageBase64.value;
 
-        td = document.createElement('td');
-        td.innerHTML = `<img src = "${photo}" class="img-fluid"  width="120" height="800">`;        
-        tr.appendChild(td);
+            td = document.createElement('td');
+            td.innerHTML = `<img src = "${photo}" class="img-fluid"  width="120" height="800">`;
+            tr.appendChild(td);
 
-        td = document.createElement('td');
-        td.innerHTML =usersurname;
-        tr.appendChild(td);
+            td = document.createElement('td');
+            td.innerHTML = usersurname;
+            tr.appendChild(td);
 
-        td = document.createElement('td');
-        td.innerHTML = username;
-        tr.appendChild(td);
+            td = document.createElement('td');
+            td.innerHTML = username;
+            tr.appendChild(td);
 
-        td = document.createElement('td');
-        td.innerHTML = userphone;
-        tr.appendChild(td);
-                
-       // Dogs       
-        td = document.createElement('td');
-        if (document.getElementById("yesdog").checked) {
-            td.innerHTML = userdog;
-        }
-        else
-        {
-            td.innerHTML = userdognone;
-        }
-        tr.appendChild(td);      
-      
-        td = document.createElement('td');
-        td.innerHTML =template;     
-        tr.appendChild(td);
-        table.appendChild(tr);          
+            td = document.createElement('td');
+            td.innerHTML = userphone;
+            tr.appendChild(td);
 
-        txtSurName.value = txtName.value = txtTelephone.value = txtDogs.value = txtDogsNone.value= "";
-        imgPhoto.src ='/images/empty.jpg';
-        $("#mymodalwindow").modal("hide"); 
-          
-        
+            // Dogs       
+            td = document.createElement('td');
+            if (document.getElementById("yesdog").checked) {
+                td.innerHTML = userdog;
+                console.log(userdog);
+            }
+            else {
+                td.innerHTML = userdognone;
+            }
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerHTML = template;
+            tr.appendChild(td);
+            table.appendChild(tr);
+
+            txtSurName.value = txtName.value = txtTelephone.value = txtDogs.value = txtDogsNone.value = "";
+            imgPhoto.src = '/images/empty.jpg';
+
+            //видалила всі дані,отримані при валідації,щоб при наступному виклику модальновікна додавання не було підсвітки з помилками.
+            txtSurName.classList.value=txtName.classList.value=txtTelephone.classList.value=txtDogs.classList.value=txtDogsNone.classList.value= '';
+            $("#mymodalwindow").modal("hide");
+        }       
+       
        
     }  
 
@@ -329,7 +330,7 @@ window.onload = function ()
     });
 
     //видалення користувача.
-    $('i.delete-service').on('click', function (e) {
+    $('body').on('click', "i.delete-service", function (e) {
         e.preventDefault();
         var item = $(this).closest("tr");
         console.log(item);
@@ -341,10 +342,55 @@ window.onload = function ()
             $(item).remove();
             $("#modaldelete").modal("hide");
         });
+    });
+      
 
-    });    
+    function showError(input) {
+        input.classList.add("is-invalid");
+        input.classList.remove("is-valid");
+    }
+    function showSuccess(input) {
+        input.classList.remove("is-invalid");
+        input.classList.add("is-valid");
+    }
 
 
+    function isValidate() {
+        var isVal = true;          
+        var regexName = /^[a-zA-Z\-]+$/;   
+              
+        //валідаця поля "Прізвище"
+        if (!regexName.test(txtSurName.value)|| txtSurName.value=="")
+        {           
+            showError(txtSurName);
+            isVal=false;
+        }
+        else
+        {
+            showSuccess(txtSurName);
+        }
+
+        //валідаця поля "Імя"
+        if (!regexName.test(txtName.value)||txtName.value=="")
+        {
+            showError(txtName);
+            isVal = false;
+        }
+        else
+        {
+            showSuccess(txtName);
+        }        
+
+        if (selectImageBase64.value == "") {
+            showError(fileImage);
+            isVal = false;
+        }
+        else {
+            showSuccess(fileImage);
+        }      
+
+        return isVal;
+    }
        
     
 }

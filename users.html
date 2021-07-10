@@ -89,10 +89,10 @@
                     </button>
                 </div>
                 <form class="needs-validation p-2" novalidate>
-                    <div class="form-row">
+                    <div class="form-group">
                         <div class="col-md-5 mb-3 ml-2">
                             <label for="txtsurname">Прізвище</label>
-                            <input type="text" class="form-control" id="txtsurname" placeholder="Прізвище" pattern="[A-Za-z]{1,15}" required>
+                            <input type="text" class="form-control" id="txtsurname" placeholder="Прізвище">
                             <div class="valid-feedback">
                                 Ок
                             </div>
@@ -102,7 +102,7 @@
                         </div>
                         <div class="col-md-5 mb-3 ml-2">
                             <label for="txtname">Ім"я</label>
-                            <input type="text" class="form-control" id="txtname" placeholder="Ім'я" pattern="[A-Za-z]{1,15}" required>
+                            <input type="text" class="form-control" id="txtname" placeholder="Ім'я">
                             <div class="valid-feedback">
                                 Ок
                             </div>
@@ -113,9 +113,9 @@
                     </div>
 
                     <div class="form-row">
-                        <div class="col-md-5 mb-3 ml-2">
+                        <div class="col-md-5 mb-4 ml-4">
                             <label for="txttel">Телефон</label>
-                            <input type="text" class="phone form-control" id="txttel" placeholder="Телефон" required>
+                            <input type="text" class=" phone form-control" id="txttel" placeholder="Телефон">
                             <div class="valid-feedback">
                                 Ок
                             </div>
@@ -133,11 +133,10 @@
                                     <form method="post" action="#" id="#">
                                         <!--<label>Завантажте фото </label>-->
                                         <div class=" form-group files">
-                                        <input style=" /*background-image: url('/images/empty.jpg');*/
-                                                    background-color: #E6E6FA;"               
-                                                    type="file"
-                                                id="fileImage"
-                                                accept=".jpg, .jpeg, .png">
+                                        <input style=" background-color: #E6E6FA;"               
+                                                       type="file"
+                                                       id="fileImage"
+                                                       accept=".jpg, .jpeg, .png">
                                         <div class="invalid-feedback">Потрібно обрати фото</div>
                                         </div>
                                     </form>
@@ -147,20 +146,21 @@
                     </div>
                     <div classs="container">
                         <div class="row ml-3">
-                        <h5>Чи є у вас собака:</h5>
-                        <div class="form-check ml-2">
-                            <input class="form-check-input" type="radio" name="radiodog" id="yesdog" value="так">
-                            <label class="form-check-label " for="yesdog">
-                                Так
-                            </label>
+                            <h5>Чи є у вас собака:</h5>                          
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" type="radio" name="radiodog" id="yesdog" value="так" >
+                                <label class="form-check-label " for="yesdog">
+                                    Так
+                                </label>
+                            </div>
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" type="radio" name="radiodog" id="nonedog" value="ні">
+                                <label class="form-check-label" for="nonedog">
+                                    Ні
+                                </label>
+                            </div>                           
                         </div>
-                        <div class="form-check ml-2">
-                            <input class="form-check-input" type="radio" name="radiodog" id="nonedog" value="ні">
-                            <label class="form-check-label" for="nonedog">
-                                Ні
-                            </label>
-                        </div>
-                        </div>
+                        
                     </div>
                     <div class="container">
                         <div class="row">
@@ -273,13 +273,13 @@
                             <h5>Чи є у вас собака:</h5>
                             <div class="form-check ml-2">
                                 <input class="form-check-input" type="radio" name="radiodog" id="edityesdog" value="так">
-                                <label class="form-check-label " for="yesdog">
+                                <label class="form-check-label " for="edityesdog">
                                     Так
                                 </label>
                             </div>
                             <div class="form-check ml-2">
                                 <input class="form-check-input" type="radio" name="radiodog" id="editnonedog" value="ні" >
-                                <label class="form-check-label" for="nonedog">
+                                <label class="form-check-label" for="editnonedog">
                                     Ні
                                 </label>
                             </div>
