@@ -2,6 +2,32 @@
     font-size: 0.98rem;
 }
 
+/*колір фону карточки товару.*/
+.row .backcolor {
+    background-color: #F5F5F5;
+}
+
+.aspect-ratio-box {
+    position: relative;
+}
+
+    /* Create a pseudo element that uses padding-bottom to take up space */
+    .aspect-ratio-box::after {
+        display: block;
+        content: '';       
+        padding-bottom: 70%;
+    }
+
+    /* Image is positioned absolutely relative to the parent element */
+    .aspect-ratio-box img {
+        /* Image should match parent box size */
+        position: absolute;
+        left: 0;
+        top: 28px;       
+        width: 100%;
+        height: 90%;
+    }
+
 
 
 
@@ -12,22 +38,30 @@
 }
 
 a.borders {
-    margin-right: 1rem;
-    font: #FFFF00;
-    border: 3px solid #FF00FF;
-    /* background-color: #00FF00;*/
-    /* color=" #FFFF00";*/
+    margin-right: 1rem;    
+    /*параметри для рамочки*/
+    border: 3px solid #FF00FF;   
     font-size: 15px;
 }
 
 a.borderusers {
-   text-decoration-color: #8B008B;
+    text-decoration-color: #8B008B;
+    border: 3px solid #FF00FF;
+    font-size: 15px;
 }
-/*li.active,*/
+
+.buttonstyle {
+    width: 250px;
+    color: #000080;
+    background-color: #E0FFFF !important;
+}
+li.active,
 a:hover {
     background-color: #B0E0E6;
+    /*формат для тексту строчки,на яку наведена мишка.*/
     font-family: georgia, times, verdana;
-    text-decoration: underline; /* Добавляем подчеркивание */
+    /*підкреслення для наведеної строчки.*/
+    text-decoration: underline; 
 }
 .carouselheight{
     height:200px;
