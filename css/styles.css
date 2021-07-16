@@ -2,6 +2,14 @@
     font-size: 0.98rem;
 }
 
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/*ширина строчки для вибору в селектах select2*/
+.row .rate {
+    width: 300px;
+}
 /*колір фону карточки товару.*/
 .row .backcolor {
     background-color: #F5F5F5;
