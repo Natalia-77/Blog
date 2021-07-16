@@ -82,7 +82,7 @@
             if (file.type.match(/^image\//)) {
 
                 const reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function () {
                    
                     //змінюю атрибут "src"
                     //$imgPhoto.attr("src", reader.result);
@@ -92,6 +92,7 @@
 
                     //записала в атрибут src зображення на вікні кроппера бейс 64 отриманого зображення.
                      $imgcropp.attr("src", reader.result);   
+                    
                    
                     //виклик модального кроппера.  
                     $cropperModal.show();  
