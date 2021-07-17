@@ -1,0 +1,29 @@
+﻿body {
+    margin: 0;
+   
+}
+
+.preview {
+    padding-top:30px;
+    width: 100%;
+}
+
+    .row > .col {
+        padding: 1px;
+    }
+
+
+.slide {
+    display: block;
+}
+
+.image-slide {
+    width: 70%;
+   
+}
+
+.modal-preview {
+    width: 50%;
+}
+ 
+
